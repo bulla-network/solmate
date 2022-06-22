@@ -93,19 +93,7 @@ abstract contract ERC721 {
             "NOT_AUTHORIZED"
         );
 
-        // Underflow of the sender's balance is impossible because we check for
-        // ownership above and the recipient's balance can't realistically overflow.
-        unchecked {
-            _balanceOf[from]--;
-
-            _balanceOf[to]++;
-        }
-
-        _ownerOf[id] = to;
-
-        delete getApproved[id];
-
-        emit Transfer(from, to, id);
+        _transferFrom(from, to, id);
     }
 
     function safeTransferFrom(
@@ -151,8 +139,28 @@ abstract contract ERC721 {
     }
 
     /*//////////////////////////////////////////////////////////////
-                        INTERNAL MINT/BURN LOGIC
+                    INTERNAL MINT/BURN/TRANSFER LOGIC
     //////////////////////////////////////////////////////////////*/
+
+    function _transferFrom(
+        address from,
+        address to,
+        uint256 id
+    ) internal virtual {
+        // Underflow of the sender's balance is impossible because we check for
+        // ownership above and the recipient's balance can't realistically overflow.
+        unchecked {
+            _balanceOf[from]--;
+
+            _balanceOf[to]++;
+        }
+
+        _ownerOf[id] = to;
+
+        delete getApproved[id];
+
+        emit Transfer(from, to, id);
+    }
 
     function _mint(address to, uint256 id) internal virtual {
         require(to != address(0), "INVALID_RECIPIENT");
