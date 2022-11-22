@@ -93,7 +93,7 @@ abstract contract ERC721 {
             "NOT_AUTHORIZED"
         );
 
-        _transferFrom(from, to, id);
+        _transferFrom(from, to, id); // NOTE: ADDED BY BULLA NETWORK ON 06/22/22 https://github.com/transmissions11/solmate/commit/98fb79bd1c2a1935e90ed5bfd8f01af5120b5aff
     }
 
     function safeTransferFrom(
@@ -142,6 +142,7 @@ abstract contract ERC721 {
                     INTERNAL MINT/BURN/TRANSFER LOGIC
     //////////////////////////////////////////////////////////////*/
 
+    // NOTE: ADDED BY BULLA NETWORK ON 06/22/22 https://github.com/transmissions11/solmate/commit/98fb79bd1c2a1935e90ed5bfd8f01af5120b5aff
     function _transferFrom(
         address from,
         address to,
